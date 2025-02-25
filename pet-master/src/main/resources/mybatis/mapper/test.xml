@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.pet.testDAO">
+    <!-- Test 테이블에 데이터 추가 -->
+    <insert id="insertTest" parameterType="com.study.pet.testDTO">
+        INSERT INTO Test (test_title, test_content, test_writer)
+        VALUES (#{param1}, #{param2}, #{param3})
+    </insert>
+  
+    <!-- Image 테이블에 데이터 추가 -->
+    <insert id="insertImage" parameterType="com.study.pet.testDTO">
+        INSERT INTO Image (test_id, image_path)
+        VALUES (#{param1}, #{param2})
+    </insert>
+
+    <!-- Test와 Image 테이블 조인하여 정보 조회 -->
+    <select id="test" resultType="com.study.pet.testDTO">
+        SELECT b.test_id, a.test_title, a.test_content, b.image_id, b.image_path, a.test_writer
+        FROM Test a,Image b
+        where a.test_id = b.test_id
+    </select>
+        <!-- 최근에 삽입된 정보의 ID 가져오기 -->
+    <select id="getLastInsertedInfoId" resultType="int">
+        SELECT LAST_INSERT_ID()
+    </select>
+    
+</mapper>

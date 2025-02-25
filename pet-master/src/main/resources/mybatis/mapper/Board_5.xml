@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.pet.DAO.BoardDAO">
+	<select id="getComment" resultType="com.study.pet.DTO.BoardDTO">
+		SELECT C.id AS id, C.member_id AS member_id, M.nickname AS nickname, post_id, content, created, updated
+		FROM comment C
+		JOIN member M 
+		ON C.member_id = M.id 
+		WHERE post_id = #{param1} AND board_id = #{param2}
+	</select>
+
+	<select id="getComment2" resultType="com.study.pet.DTO.BoardDTO">
+		SELECT C.id AS id, C.member_id AS member_id, M.nickname AS nickname,
+		post_id,both;"
+		content, created, updated
+		FROM comment C JOIN member M ON C.member_id = M.id WHERE post_id =
+		#{param1} AND board_id = #{param2}
+		LIMIT #{param3}, 10
+	</select>
+
+	<insert id="addComment">
+		INSERT INTO comment SET member_id = #{param1}, board_id = #{param2}, post_id
+		= #{param3}, content = #{param4}
+	</insert>
+
+	<update id="modifyComment">
+		UPDATE comment SET member_id = #{param2}, post_id = #{param3}, content =
+		#{param4} WHERE id = #{param1}
+	</update>
+
+	<delete id="deleteComment">
+		DELETE FROM comment WHERE id = #{param1}
+	</delete>
+
+	<select id="pagetotal" resultType="_int">
+		SELECT COUNT(*) FROM comment WHERE post_id = #{param1}
+	</select>
+
+
+
+<!-- 여기서부터가 게시판에 관련된곳. -->
+	<select id="getBoardList" resultType="com.study.pet.DTO.BoardDTO">
+		SELECT a.id, a.category, b.state, a.title, a.title_img, a.content, a.created, c.nickname 
+		FROM board a
+		JOIN category b ON a.category = b.id
+		JOIN member c ON a.writer = c.id
+		WHERE a.category IN (#{param1}, #{param2})
+		ORDER BY a.id DESC
+		<if test="param3 != null and param3 >= 0">
+        LIMIT #{param3}, 12
+    </if>
+	</select>
+
+	<insert id="insertBoard">
+		INSERT INTO board SET category = #{param1}, title = #{param2}, title_img =
+		#{param3}, content = #{param4}, writer = #{param5}
+	</insert>
+	
+		<update id="modifyBoard">
+		UPDATE board
+		SET category = #{param2}, title = #{param3}, title_img = #{param4},
+		content = #{param5}
+		WHERE id = #{param1}
+	</update>
+
+	<select id="getView" resultType="com.study.pet.DTO.BoardDTO">
+		SELECT * FROM board WHERE id = #{param1}
+	</select>
+
+
+
+	<select id="category" resultType="com.study.pet.DTO.BoardDTO">
+		SELECT * FROM category
+	</select>
+
+	<select id="showDetail" resultType="com.study.pet.DTO.BoardDTO">
+		SELECT A.id, A.category, title, title_img, content, created, C.nickname
+		FROM board A
+		JOIN category B
+		ON A.category = B.id
+		JOIN member C
+		ON A.writer = C.id
+		WHERE (B.id = #{param1} OR B.id = #{param2}) AND A.id = #{param3}
+	</select>
+
+
+
+	<delete id="removeInfo">
+		DELETE FROM information_board WHERE id = #{param1}
+	</delete>
+
+</mapper>

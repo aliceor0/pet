@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.pet.partnerDAO_4">
+<select id="partner_board" resultType="com.study.pet.partnerDTO_4">
+ SELECT a.id,a.category,b.state,title,title_img,content 
+from partner_board a, category b 
+where a.category=b.id  
+<!-- SELECT id,category,title,title_img,content from partner_board -->
+</select>
+<select id="category" resultType="com.study.pet.categoryDTO_4">
+select * from category
+</select> 
+<insert id="insert">
+ 	INSERT INTO partner_board set category=#{param1}, title=#{param2},title_img=#{param3}, content=#{param4} 
+
+</insert>
+<delete id="remove">
+   delete from partner_board  where id = #{param1}  
+</delete>
+<!-- <select id="getTotalPosts" resultType="int">
+    SELECT COUNT(*) FROM partner_board
+</select>
+<select id="getPartnersByPage" resultType="com.study.pet.partnerDTO_4">
+    SELECT a.id, a.category, b.state, title, title_img, content 
+    FROM partner_board a, category b 
+    WHERE a.category = b.id 
+    LIMIT #{param1}, #{param2}
+</select> -->
+</mapper>

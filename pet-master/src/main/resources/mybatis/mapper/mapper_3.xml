@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.pet.DAO_3">
+<insert id="doSignup">
+	INSERT INTO member (user_id, nickname, password, name, mobile, mail, birth, gender, zipcode, adress, adress2, salt, member_rank)
+	VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, #{param12}, 3)
+</insert>
+<insert id="doApiSignup">
+	INSERT INTO member (user_id, nickname, password, name, mobile, mail, birth, gender, zipcode, adress, adress2, member_rank)
+	VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10}, #{param11}, 3)
+</insert>
+<select id="doLogin" resultType="java.lang.Integer">
+	SELECT count(*) from member where user_id=#{param1} and password=#{param2}
+</select>
+<select id="getName" resultType="com.study.pet.DTO_3">
+	SELECT name from member where user_id=#{param1} and password=#{param2}
+</select>
+<select id="getSalt" resultType="com.study.pet.DTO_3">
+	SELECT password,salt from member where user_id=#{param1}
+</select>
+<select id="getNickname" resultType="com.study.pet.DTO_3">
+	SELECT nickname from member where user_id=#{param1} and password=#{param2}
+</select>
+<select id="getApiName" resultType="string">
+	SELECT nickname from member where user_id=#{param1} 
+</select>
+<select id="getEmail" resultType="com.study.pet.DTO_3">
+	SELECT user_id,salt from member where mail=#{param1}
+</select>
+<select id="id_mail_chk" resultType="int">
+	SELECT count(*) from member where mail=#{param1} and user_id=#{param2}
+</select>
+<update id="updatePass">
+	UPDATE member SET password = #{param2}, salt = #{param3} WHERE user_id = #{param1}
+</update>
+<select id="idchk" resultType="int">
+	<![CDATA[ SELECT count(*) FROM member WHERE user_id=#{param1} ]]>
+</select>
+<select id="Nicknamechk" resultType="int">
+	<![CDATA[ SELECT count(*) FROM member WHERE nickname=#{param1} ]]>
+</select>
+</mapper>

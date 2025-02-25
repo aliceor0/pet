@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.pet.CommunityDAO_5">
+<select id="getVolunteerList" resultType="com.study.pet.CommunityDTO_5">
+    select * from volunteer_board;
+</select>
+<select id="getVolunteerInfo" resultType="com.study.pet.CommunityDTO_5">
+    select * from volunteer_board where id = #{param1}
+</select>
+<insert id="addVolunteer">
+	INSERT into volunteer_board set member_id = #{param1}, title = #{param2}, agent = #{param3}, adress = #{param4}, name = #{param5},  phone_number = #{param6}, recruitPeriod = #{param7}, volunteerPeriod = #{param8}, date = #{param9}, time = #{param10}, home_page = #{param11}, img = #{param12}, content = #{param13}
+</insert>
+
+</mapper>

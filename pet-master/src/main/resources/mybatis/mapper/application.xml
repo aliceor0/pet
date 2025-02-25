@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.pet.applicationDAO">
+	<insert id="application">
+        insert into application set
+			name =#{param1},
+			mobile =#{param2},
+			substityteMobile =#{param3},
+			email =#{param4},
+			gender =#{param5},
+			age =#{param6},
+			zipCode =#{param7},
+			address =#{param8},
+			detailedAddress =#{param9},
+			job =#{param10},
+			takeCare =#{param11}
+    </insert>
+</mapper>
